@@ -33,9 +33,11 @@ def extract_features(segment):
     }
 
 with h5py.File('dataset.h5', 'r') as hdf:
+    train_set = hdf['dataset/Train/data'][:]
+    test_set = hdf['dataset/Test/data'][:]
 
-    df_train = pd.DataFrame(hdf['dataset/Train'][:])
-    df_test = pd.DataFrame(hdf['dataset/Test'][:])
+df_train = pd.DataFrame(train_set)
+df_test = pd.DataFrame(test_set)
 
 features_train = []
 features_test = []
