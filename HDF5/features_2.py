@@ -40,12 +40,12 @@ try:
     # Process segments for train_set
     for start_row in range(0, df_train.shape[0], 250):
         segment = df_train.iloc[start_row:start_row+250]
-        features_train.append(calculate_features(segment))
+        features_train.append(extract_features(segment))
 
     # Process segments for test_set 
     for start_row in range(0, df_test.shape[0], 250):
         segment = df_test.iloc[start_row:start_row+250]
-        features_test.append(calculate_features(segment))
+        features_test.append(extract_features(segment))
 
     # Convert the lists of features into DataFrame
     df_features_train = pd.DataFrame(features_train)
