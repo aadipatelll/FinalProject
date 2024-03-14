@@ -13,9 +13,9 @@ def process_for_AI(df):
 
 # Read the CSV file and store them
 # ds is just short form for dataset
-ds_aadi = pd.read_csv('aadi_data.csv')
-ds_trevor = pd.read_csv('trevor_data.csv')
-ds_arjun = pd.read_csv('arjun_data.csv')
+ds_aadi = pd.read_csv('./aadi_data.csv')
+ds_trevor = pd.read_csv('./trevor_data.csv')
+ds_arjun = pd.read_csv('./arjun_data.csv')
 
 # Read each CSV file into a dataframe, segment and shuffle
 ds_1 = process_for_AI(ds_aadi)
