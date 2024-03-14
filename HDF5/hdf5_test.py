@@ -8,25 +8,30 @@ def process_for_AI(df):
     segments = [df.iloc[i:i + 250] for i in range(0, len(df), 250)]
     # Shuffle the segments
     np.random.shuffle(segments)
-    # Concatenate the segments back into a single dataframe
-    return pd.concat(segments, ignore_index=True)
+    return segments
 
 # Read the CSV file and store them
 # ds is just short form for dataset
-ds_aadi = pd.read_csv('./aadi_data.csv')
-ds_trevor = pd.read_csv('./trevor_data.csv')
-ds_arjun = pd.read_csv('./arjun_data.csv')
+ds_aadi = pd.read_csv('aadi_data.csv')
+ds_trevor = pd.read_csv('trevor_data.csv')
+ds_arjun = pd.read_csv('arjun_data.csv')
 
-# Read each CSV file into a dataframe, segment and shuffle
-ds_1 = process_for_AI(ds_aadi)
-ds_2 = process_for_AI(ds_trevor)
-ds_3 = process_for_AI(ds_arjun)
+# Process each member's CSV file into segments
+segments_aadi = process_for_AI(ds_aadi)
+segments_trevor = process_for_AI(ds_trevor)
+segments_arjun = process_for_AI(ds_arjun)
 
-# Combine all the shuffled segments from all members
-combined_ds = pd.concat([ds_1, ds_2, ds_3], ignore_index=True)
+# Concatenate all the shuffled segments from all members into a single list
+all_segments = segments_aadi + segments_trevor + segments_arjun
 
-# Split the combined data into training and testing sets (90% train, 10% test)
-train_set, test_set = train_test_split(combined_ds, test_size=0.1)
+# Shuffle the segments again to ensure random distribution of all members' segments
+np.random.shuffle(all_segments)
+
+# Concatenate all segments into a single DataFrame for the train and test split
+all_data_df = pd.concat(all_segments)
+
+# Split the data into training and testing sets (90% train, 10% test)
+train_set, test_set = train_test_split(all_data_df, test_size=0.1)
 
 with h5py.File('dataset.h5', 'w') as hdf:
     # Create dataset group at the root level

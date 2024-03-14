@@ -14,11 +14,10 @@ def update_square():
     except StopIteration:
         pass
 
+
+
 root = tk.Tk()
 root.title("CSV File Reader")
-
-
-# hello
 
 file_path = "random_data.csv"
 csvfile = open(file_path, newline='')
@@ -29,8 +28,7 @@ current_color = "blue"
 square = tk.Frame(root, width=300, height=300, bg=current_color, highlightbackground="black", highlightthickness=1)
 square.pack()
 
+
 update_square()
-
 root.mainloop()
-
 csvfile.close()
