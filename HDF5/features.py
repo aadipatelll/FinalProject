@@ -19,7 +19,6 @@ def extract_features(segment):
     features.append(kurtosis(segment)) 
     features.append(np.sqrt(np.mean(np.square(segment)))) #rms 
     features.append(np.sum(np.diff(np.sign(segment)) != 0) / len(segment))  # zero crossing rate 
-
     return features 
 
 try:
@@ -28,6 +27,6 @@ try:
             features = extract_features(segment)
             print(features)
 
-except Exception as e :
+except Exception as e:
     print("Dang")
 
