@@ -30,3 +30,6 @@ try:
 except Exception as e:
     print("Dang")
 
+df_train = pd.DataFrame(train_set)
+df_test = pd.DataFrame(test_set)
+
