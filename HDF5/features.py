@@ -17,8 +17,6 @@ def extract_features(segment):
     rms_val = np.sqrt(np.mean(np.square(segment))) #rms 
     zero_val = np.sum(np.diff(np.sign(segment)) != 0) / len(segment)  # zero crossing rate 
 
-
-
     return {
         'max': max_val,
         'min': min_val,
