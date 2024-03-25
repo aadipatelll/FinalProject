@@ -6,8 +6,8 @@ from sklearn.model_selection import train_test_split
 def process_for_AI(df):
     df = df.iloc[:, 3]
     df = df.iloc[1:] 
-    # Split the dataframe into segments of 250 rows
-    segments = [df.iloc[i:i + 250] for i in range(0, len(df), 250)]
+    # Split the dataframe into segments of 500 rows
+    segments = [df.iloc[i:i + 500] for i in range(0, len(df), 500)]
 
     # Shuffle the segments
     np.random.shuffle(segments)

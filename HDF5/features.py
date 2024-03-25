@@ -44,12 +44,12 @@ features_train = []
 features_test = []
 
 
-for start_row in range(0, df_train.shape[0], 250):
-    segment = df_train.iloc[start_row:start_row+250]
+for start_row in range(0, df_train.shape[0], 500):
+    segment = df_train.iloc[start_row:start_row+500]
     features_train.append(extract_features(segment))
 
-for start_row in range(0, df_test.shape[0], 250):
-    segment = df_test.iloc[start_row:start_row+250]
+for start_row in range(0, df_test.shape[0], 500):
+    segment = df_test.iloc[start_row:start_row+500]
     features_test.append(extract_features(segment))
 
 
