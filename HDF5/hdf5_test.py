@@ -18,29 +18,22 @@ def process_for_AI(df):
 ds_aadi = pd.read_csv('aadi_data.csv')
 ds_trevor = pd.read_csv('trevor_data.csv')
 ds_arjun = pd.read_csv('arjun_data.csv')
-ds_walk = pd.read_csv('walk.csv')
-ds_jump = pd.read_csv('jump.csv')
 
 # Process each member's CSV file into segments
 segments_aadi = process_for_AI(ds_aadi)
 segments_trevor = process_for_AI(ds_trevor)
 segments_arjun = process_for_AI(ds_arjun)
-segments_walk = process_for_AI(ds_walk)
-walk_set = pd.concat(segments_walk)
-segments_jump = process_for_AI(ds_jump)
-jump_set = pd.concat(segments_jump)
 
 # Concatenate all the shuffled segments from all members into a single list
-all_segments = segments_aadi + segments_trevor + segments_arjun 
+all_segments = segments_aadi + segments_trevor + segments_arjun
 
-# Shuffle the segments again to ensure random distribution of all members' segments
+# Shuffle the concatenated segments to ensure random distribution of all members' segments
 np.random.shuffle(all_segments)
 
 # Concatenate all segments into a single DataFrame for the train and test split
 all_data_df = pd.concat(all_segments)
-
 # Split the data into training and testing sets (90% train, 10% test)
-train_set, test_set = train_test_split(all_data_df, test_size=0.1)
+train_set, test_set = train_test_split(all_data_df, test_size=0.1, shuffle=False)
 
 with h5py.File('dataset.h5', 'w') as hdf:
     # Create dataset group at the root level
@@ -49,14 +42,10 @@ with h5py.File('dataset.h5', 'w') as hdf:
     # Create subgroups for training and testing sets in dataset group
     group_train = group_dataset.create_group('Train')
     group_test = group_dataset.create_group('Test')
-    group_walk = group_dataset.create_group('walk')
-    group_jump = group_dataset.create_group('jump')
     
     # Create and store data for the training and testing sets inside their respective groups
     group_train.create_dataset('data', data=train_set.to_numpy())
     group_test.create_dataset('data', data=test_set.to_numpy())
-    group_walk.create_dataset('data', data=walk_set.to_numpy())
-    group_jump.create_dataset('data', data=jump_set.to_numpy())
     
     # Create groups for each member at the root level
     group_aadi = hdf.create_group('aadi_data')
