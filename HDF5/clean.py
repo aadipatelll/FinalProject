@@ -1,6 +1,5 @@
 import pandas as pd
 
-# 
 def clean_df(df):
     for col in df.columns:
         try:
